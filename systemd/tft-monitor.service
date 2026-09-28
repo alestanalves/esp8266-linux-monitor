@@ -1,0 +1,27 @@
+[Unit]
+Description=Monitor de sistema USB para ESP8266 e TFT ST7735
+After=systemd-udevd.service
+
+[Service]
+Type=simple
+User=tft-monitor
+Group=tft-monitor
+Environment=PYTHONDONTWRITEBYTECODE=1
+Environment=PYTHONUNBUFFERED=1
+Environment=TFT_PORT=auto TFT_INTERVAL=1 TFT_DISK=/ TFT_INTERFACE=auto
+EnvironmentFile=-/etc/tft-monitor.env
+ExecStart=/opt/tft-monitor/venv/bin/tft-monitor --port ${TFT_PORT} --interval ${TFT_INTERVAL} --disk ${TFT_DISK} --interface ${TFT_INTERFACE}
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=read-only
+PrivateTmp=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+UMask=0077
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "esp8266-cachyos-monitor"
+version = "1.0.0"
+description = "Monitor USB para CachyOS e Linux em ESP8266 NodeMCU e TFT ST7735"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = ["psutil>=5.9,<8", "pyserial>=3.5,<4"]
+keywords = ["esp8266", "nodemcu", "st7735", "cachyos", "linux", "system-monitor"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: POSIX :: Linux",
+    "Topic :: System :: Monitoring",
+]
+
+[project.urls]
+Repository = "https://github.com/alestanalves/esp8266-linux-monitor"
+Documentation = "https://github.com/alestanalves/esp8266-linux-monitor#readme"
+Issues = "https://github.com/alestanalves/esp8266-linux-monitor/issues"
+
+[project.optional-dependencies]
+flash = ["mpremote>=1.24,<2", "esptool>=5,<6"]
+dev = ["pytest>=8,<10"]
+
+[project.scripts]
+tft-monitor = "tft_monitor.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["host"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["host"]
